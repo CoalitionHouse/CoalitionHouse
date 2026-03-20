@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coalition House — Product Agency for Early-Stage Teams</title>
+  <meta name="description" content="Coalition House is a product agency offering strategy, research, design and development — built for early-stage teams before their first PM or designer hire." />
+  <meta property="og:title" content="Coalition House — Product Agency" />
+  <meta property="og:description" content="Strategy, research, design and development for early-stage product teams." />
+  <meta property="og:url" content="https://coalition.house" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --grad-start: #2BB8F0;
+      --grad-mid:   #3D72F6;
+      --grad-end:   #5B2FC9;
+      --gradient: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-mid) 50%, var(--grad-end) 100%);
+      --gradient-glow: linear-gradient(135deg, rgba(43,184,240,0.22) 0%, rgba(61,114,246,0.22) 50%, rgba(91,47,201,0.22) 100%);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --font-sans: 'Inter', sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
+      --transition: 0.22s ease;
+    }
+    [data-theme="dark"] {
+      --bg:          #07070F;
+      --bg-alt:      #0B0B18;
+      --surface:     #0F0F1C;
+      --surface-2:   #151526;
+      --border:      rgba(255,255,255,0.07);
+      --border-hover:rgba(255,255,255,0.14);
+      --text:        #EDEEFF;
+      --text-muted:  #6A6A90;
+      --text-faint:  #2E2E50;
+      --accent:      #3D72F6;
+      --accent-2:    #7BA4FF;
+      --accent-glow: rgba(61,114,246,0.16);
+      --accent-glow-strong: rgba(61,114,246,0.30);
+      --logo-bg:     rgba(255,255,255,0.06);
+      --logo-border: rgba(255,255,255,0.10);
+      --shadow:      0 4px 32px rgba(0,0,0,0.5);
+      --nav-blur-bg: rgba(7,7,15,0.80);
+      color-scheme: dark;
+    }
+    [data-theme="light"] {
+      --bg:          #F5F7FF;
+      --bg-alt:      #ECEEFF;
+      --surface:     #FFFFFF;
+      --surface-2:   #F0F2FF;
+      --border:      rgba(61,114,246,0.10);
+      --border-hover:rgba(61,114,246,0.22);
+      --text:        #0A0A20;
+      --text-muted:  #5A5A7A;
+      --text-faint:  #B0B0CC;
+      --accent:      #3D72F6;
+      --accent-2:    #5B2FC9;
+      --accent-glow: rgba(61,114,246,0.08);
+      --accent-glow-strong: rgba(61,114,246,0.22);
+      --logo-bg:     rgba(255,255,255,1);
+      --logo-border: rgba(61,114,246,0.15);
+      --shadow:      0 4px 32px rgba(61,114,246,0.10);
+      --nav-blur-bg: rgba(245,247,255,0.85);
+      color-scheme: light;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+    [data-theme="dark"] body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.5;
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gradient); border-radius: 4px; }
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.4rem, 5.5vw, 4.6rem); }
+    h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); }
+    h3 { font-size: clamp(1rem, 1.8vw, 1.25rem); font-weight: 500; }
+    p { color: var(--text-muted); line-height: 1.75; }
+    a { color: inherit; text-decoration: none; }
+    .text-gradient {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .bg-gradient { background: var(--gradient); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+    .section { padding: 100px 0; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.10s; }
+    .reveal-delay-2 { transition-delay: 0.20s; }
+    .reveal-delay-3 { transition-delay: 0.30s; }
+    .reveal-delay-4 { transition-delay: 0.40s; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; padding: 14px 0;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+    }
+    nav.scrolled {
+      background: var(--nav-blur-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-logo-wrap {
+      display: flex; align-items: center;
+      background: var(--logo-bg);
+      border: 1px solid var(--logo-border);
+      border-radius: 10px;
+      padding: 6px 14px;
+      transition: border-color var(--transition);
+    }
+    .nav-logo-wrap:hover { border-color: var(--border-hover); }
+    .nav-logo-img { height: 28px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a {
+      font-size: 0.875rem; color: var(--text-muted);
+      transition: color var(--transition); font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .theme-toggle {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--border-hover); }
+    .theme-toggle svg { transition: opacity var(--transition); }
+    .icon-sun { display: none; }
+    .icon-moon { display: flex; }
+    [data-theme="light"] .icon-sun { display: flex; }
+    [data-theme="light"] .icon-moon { display: none; }
+    .btn-nav {
+      padding: 9px 20px;
+      background: var(--gradient);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 0.875rem; font-weight: 600;
+      transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+      box-shadow: 0 0 24px var(--accent-glow-strong);
+    }
+    .btn-nav:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 32px var(--accent-glow-strong); }
+    .nav-mobile-toggle { display: none; cursor: pointer; color: var(--text-muted); }
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 90px; position: relative; overflow: hidden;
+    }
+    .hero-bg-dark {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 50% at 72% 38%, rgba(43,184,240,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 45% at 62% 40%, rgba(61,114,246,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 45% at 52% 42%, rgba(91,47,201,0.10) 0%, transparent 55%);
+    }
+    [data-theme="light"] .hero-bg-dark {
+      background:
+        radial-gradient(ellipse 55% 50% at 72% 38%, rgba(43,184,240,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 45% at 62% 40%, rgba(61,114,246,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 45% at 52% 42%, rgba(91,47,201,0.10) 0%, transparent 55%);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(61,114,246,0.25);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--accent-2); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 22px;
+    }
+    .eyebrow-dot { width: 6px; height: 6px; background: var(--gradient); border-radius: 50%; display: inline-block; }
+    .hero h1 { margin-bottom: 22px; }
+    .hero-subtitle {
+      font-size: 1.08rem; color: var(--text-muted);
+      margin-bottom: 38px; max-width: 430px; line-height: 1.75;
+    }
+    .hero-cta-group { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px;
+      background: var(--gradient);
+      color: #fff; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: all var(--transition);
+      box-shadow: 0 0 32px var(--accent-glow-strong);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px var(--accent-glow-strong); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 22px; color: var(--text-muted);
+      border: 1px solid var(--border); border-radius: 10px;
+      font-weight: 500; font-size: 0.95rem;
+      transition: all var(--transition);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-right { position: relative; }
+    .hero-card-stack { position: relative; height: 390px; }
+    .hero-card {
+      position: absolute;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .hero-card-main {
+      top: 0; left: 0; right: 0; padding: 28px;
+      background: var(--surface-2);
+      border-color: rgba(61,114,246,0.2);
+    }
+    .hero-card-label {
+      font-size: 0.70rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-faint); margin-bottom: 8px;
+    }
+    .hero-card-value { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .hero-card-sub { font-size: 0.80rem; color: var(--text-muted); }
+    .hero-card-float-1 { bottom: 24px; right: 0; width: 215px; animation: float 4s ease-in-out infinite; }
+    .hero-card-float-2 { bottom: 140px; left: -12px; width: 185px; animation: float 4s ease-in-out 1.2s infinite; }
+    .metric-row { display: flex; gap: 18px; margin-top: 16px; }
+    .metric { flex: 1; }
+    .metric-num { font-family: var(--font-display); font-size: 1.55rem; font-weight: 700; color: var(--text); }
+    .metric-num span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .metric-label { font-size: 0.75rem; color: var(--text-muted); }
+    .status-live { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #4ADE80; margin-top: 16px; }
+    .status-live::before { content:''; width:6px; height:6px; background:#4ADE80; border-radius:50%; box-shadow:0 0 6px #4ADE80; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .hero-card-main::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gradient); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .trust-bar {
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      transition: background var(--transition);
+    }
+    .trust-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .trust-stat { text-align: center; }
+    .trust-num { font-family: var(--font-display); font-size: 1.75rem; font-weight: 700; line-height: 1; }
+    .trust-label { font-size: 0.76rem; color: var(--text-muted); margin-top: 4px; }
+    .trust-divider { width: 1px; height: 36px; background: var(--border); }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 14px;
+      background: var(--gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .section-tag::before { content:''; display:inline-block; width:18px; height:1.5px; background:var(--gradient); }
+    .section-headline { margin-bottom: 14px; }
+    .section-sub { font-size: 1.02rem; color: var(--text-muted); max-width: 510px; line-height: 1.75; margin-bottom: 56px; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .service-card {
+      background: var(--bg); padding: 34px 30px;
+      transition: background var(--transition); position: relative;
+    }
+    .service-card:hover { background: var(--surface); }
+    .service-icon {
+      width: 42px; height: 42px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(61,114,246,0.18);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; margin-bottom: 18px;
+    }
+    .service-card h3 { margin-bottom: 9px; font-size: 1.02rem; color: var(--text); }
+    .service-card p { font-size: 0.875rem; line-height: 1.65; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .work-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 30px;
+      transition: all var(--transition); position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+    .work-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gradient); opacity: 0; transition: opacity 0.3s;
+    }
+    .work-card:hover { border-color: rgba(61,114,246,0.25); transform: translateY(-3px); box-shadow: var(--shadow); }
+    .work-card:hover::before { opacity: 1; }
+    .work-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .work-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tag {
+      font-size: 0.70rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; padding: 3px 9px;
+      border-radius: 100px; border: 1px solid var(--border); color: var(--text-muted);
+    }
+    .tag.highlight {
+      background: var(--accent-glow);
+      border-color: rgba(61,114,246,0.25); color: var(--accent-2);
+    }
+    .work-card h3 { font-size: 1.15rem; margin-bottom: 9px; color: var(--text); }
+    .work-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 18px; }
+    .work-outcome {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600; color: var(--text);
+    }
+    .work-outcome .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gradient); flex-shrink: 0;
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .work-visual {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--radius); height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .work-visual-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; width: 100%; }
+    .mini-block {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; height: 60px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    }
+    .mini-block-num { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; }
+    .mini-block-lbl { font-size: 0.62rem; color: var(--text-faint); }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .process-step {
+      background: var(--bg); padding: 34px 26px;
+      position: relative; transition: background var(--transition);
+    }
+    .process-step:hover { background: var(--surface); }
+    .process-step::after {
+      content: attr(data-num);
+      position: absolute; top: 16px; right: 18px;
+      font-family: var(--font-display); font-size: 4.5rem; font-weight: 800;
+      color: var(--border); line-height: 1; pointer-events: none;
+    }
+    .process-weeks {
+      display: inline-block; font-size: 0.70rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      border: 1px solid rgba(61,114,246,0.2);
+      padding: 3px 10px; border-radius: 100px;
+      background-color: var(--accent-glow);
+      margin-bottom: 12px; display: block; width: fit-content;
+    }
+    .process-step h3 { font-size: 0.98rem; margin-bottom: 10px; color: var(--text); }
+    .process-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+    .process-list li { font-size: 0.80rem; color: var(--text-muted); display: flex; align-items: flex-start; gap: 7px; }
+    .process-list li::before { content:'→'; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; flex-shrink: 0; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .why-col {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 34px;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .why-col.col-yes { border-color: rgba(61,114,246,0.22); }
+    .why-col-header { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+    .why-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .why-icon.no { background: rgba(255,100,100,0.1); border: 1px solid rgba(255,100,100,0.2); }
+    .why-icon.yes { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2); }
+    .why-col-title { font-family: var(--font-display); font-size: 0.98rem; font-weight: 600; color: var(--text); }
+    .why-item { display: flex; align-items: flex-start; gap: 11px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+    .why-item:last-child { border-bottom: none; }
+    .why-item-icon { font-size: 0.88rem; margin-top: 1px; flex-shrink: 0; }
+    .why-item-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
+    .why-item-text strong { color: var(--text); font-weight: 500; }
+    .testimonial-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .testimonial-section::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gradient);
+    }
+    .testimonial-inner { max-width: 740px; margin: 0 auto; text-align: center; padding: 80px 28px; }
+    .quote-mark { font-size: 4.5rem; line-height: 1; font-family: Georgia, serif; margin-bottom: 6px; }
+    .quote-text {
+      font-family: var(--font-display); font-size: clamp(1.05rem, 2.2vw, 1.42rem);
+      font-weight: 500; color: var(--text); line-height: 1.58;
+      margin-bottom: 30px; letter-spacing: -0.01em;
+    }
+    .quote-author { display: flex; align-items: center; justify-content: center; gap: 13px; }
+    .quote-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem; color: #fff;
+    }
+    .quote-meta { text-align: left; }
+    .quote-name { font-weight: 600; font-size: 0.88rem; color: var(--text); }
+    .quote-role { font-size: 0.78rem; color: var(--text-muted); }
+    .cta-section { text-align: center; position: relative; overflow: hidden; }
+    .cta-glow {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(61,114,246,0.12) 0%, rgba(43,184,240,0.06) 40%, transparent 70%);
+      left: 50%; top: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .cta-box {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid rgba(61,114,246,0.22);
+      border-radius: 24px; padding: 72px 48px;
+      max-width: 660px; margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+    .cta-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gradient); border-radius:24px 24px 0 0; }
+    .cta-box h2 { margin-bottom: 14px; }
+    .cta-box > p { margin-bottom: 36px; font-size: 1.02rem; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .cta-meta { margin-top: 18px; font-size: 0.78rem; color: var(--text-faint); }
+    .cta-meta a { color: var(--text-muted); border-bottom: 1px solid var(--border); transition: color var(--transition); }
+    .cta-meta a:hover { color: var(--accent); }
+    footer { padding: 48px 0 34px; border-top: 1px solid var(--border); transition: background var(--transition); }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 44px; }
+    .footer-brand-logo {
+      display: flex; align-items: center;
+      background: var(--logo-bg); border: 1px solid var(--logo-border);
+      border-radius: 10px; padding: 8px 14px;
+      margin-bottom: 16px; width: fit-content;
+    }
+    .footer-brand-logo img { height: 26px; width: auto; }
+    .footer-brand p { font-size: 0.86rem; color: var(--text-muted); max-width: 270px; line-height: 1.7; margin-bottom: 18px; }
+    .footer-link-group h4 { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 14px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links li a { font-size: 0.86rem; color: var(--text-muted); transition: color var(--transition); }
+    .footer-links li a:hover { color: var(--accent); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 26px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px;
+    }
+    .footer-legal { font-size: 0.76rem; color: var(--text-faint); line-height: 1.7; }
+    .footer-email {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.84rem; color: var(--text-muted); transition: color var(--transition);
+    }
+    .footer-email:hover { color: var(--accent); }
+    .built-by { font-size: 0.76rem; color: var(--text-faint); }
+    .grad-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gradient); color: #fff;
+      border-radius: 100px; padding: 4px 12px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card.featured { grid-column: 1; display: block; }
+      .work-visual { display: none; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: 64px; left: 0; right: 0;
+        background: var(--nav-blur-bg); backdrop-filter: blur(20px);
+        padding: 24px 28px; border-bottom: 1px solid var(--border);
+        gap: 20px; z-index: 99;
+      }
+      .nav-mobile-toggle { display: flex; }
+      .trust-inner { justify-content: center; gap: 28px; }
+      .trust-divider { display: none; }
+      .cta-box { padding: 44px 22px; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo-wrap">
+        <img src="Coalition-House-Logo-2023.jpeg" alt="Coalition House" class="nav-logo-img" />
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#contact" class="btn-nav">Book a Call →</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+        <div class="nav-mobile-toggle" id="mobileToggle">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="11" x2="19" y2="11"/><line x1="3" y1="16" x2="19" y2="16"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-dark"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow reveal"><span class="eyebrow-dot"></span> Product Agency · Est. 2018</div>
+        <h1 class="reveal reveal-delay-1">Your first product hire<br/><span class="text-gradient">isn't a person.</span></h1>
+        <p class="hero-subtitle reveal reveal-delay-2">Coalition House embeds as your product team — strategy, research, design and development — so you ship with confidence before your first PM hire.</p>
+        <div class="hero-cta-group reveal reveal-delay-3">
+          <a href="#contact" class="btn-primary">
+            Book a Free Product Audit
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+          <a href="#work" class="btn-ghost">See our work</a>
+        </div>
+      </div>
+      <div class="hero-right reveal reveal-delay-2">
+        <div class="hero-card-stack">
+          <div class="hero-card hero-card-main">
+            <div class="hero-card-label">Active Engagement</div>
+            <div class="hero-card-value">ProStudio.space</div>
+            <div class="hero-card-sub">AI Pre-Production · Film &amp; Media</div>
+            <div class="metric-row">
+              <div class="metric">
+                <div class="metric-num">0<span>→1</span></div>
+                <div class="metric-label">Full product built</div>
+              </div>
+              <div class="metric">
+                <div class="metric-num">12<span>wk</span></div>
+                <div class="metric-label">To live product</div>
+              </div>
+            </div>
+            <div class="status-live">Live &amp; Shipping</div>
+          </div>
+          <div class="hero-card hero-card-float-1">
+            <div class="hero-card-label">Outcome</div>
+            <div class="hero-card-value" style="font-size:1rem;"><span class="text-gradient">Seed Raised ✦</span></div>
+            <div class="hero-card-sub">Imux · NLP × DB</div>
+          </div>
+          <div class="hero-card hero-card-float-2">
+            <div class="hero-card-label">Track Record</div>
+            <div class="hero-card-value" style="font-size:1rem;"><span class="text-gradient">15+ Products</span></div>
+            <div class="hero-card-sub">FinTech · HealthTech · SaaS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-stat reveal">
+        <div class="trust-num text-gradient">15+</div>
+        <div class="trust-label">Products Built</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat reveal reveal-delay-1">
+        <div class="trust-num text-gradient">0→1</div>
+        <div class="trust-label">Specialisation</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat reveal reveal-delay-2">
+        <div class="trust-num text-gradient">7+</div>
+        <div class="trust-label">Years Est. 2018</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat reveal reveal-delay-3">
+        <div class="trust-num text-gradient">4</div>
+        <div class="trust-label">Verticals</div>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-stat reveal reveal-delay-4">
+        <div class="trust-num" style="font-size:1.4rem;">🇨🇦 🇮🇳</div>
+        <div class="trust-label">Canada · India</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">What we do</div>
+      <h2 class="section-headline">Full-stack product thinking,<br />none of the overhead.</h2>
+      <p class="section-sub">We cover every layer of product — from the whiteboard to the shipped feature — so you don't have to assemble a team before you're ready.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🧭</div>
+        <h3>Product Strategy</h3>
+        <p>North star metrics, roadmap prioritisation, competitive positioning, and go-to-market. We ask the hard questions so your team ships the right things.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">🔬</div>
+        <h3>User Research</h3>
+        <p>Jobs-to-be-done interviews, usability testing, and synthesis into sharp product decisions. Research that informs, not decorates.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">✦</div>
+        <h3>Product Design</h3>
+        <p>UX architecture, interaction design, and high-fidelity UI — from wireframe to developer-ready design system.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">⚡</div>
+        <h3>Development</h3>
+        <p>Frontend, backend and no-code/low-code builds. We ship working products — not just prototypes — across web and mobile.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">📊</div>
+        <h3>Growth &amp; Analytics</h3>
+        <p>Funnel design, product analytics setup, A/B testing frameworks, and growth loops built into the product from day one.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-icon">🤝</div>
+        <h3>Partnerships &amp; GTM</h3>
+        <p>Partnership strategy, API integrations, and market expansion playbooks — from ecosystem mapping to signed agreements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work" style="padding-top:0;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Selected Work</div>
+      <h2 class="section-headline">Products we've built.</h2>
+      <p class="section-sub">Outcomes, not aesthetics. Every project starts with a problem and ends with a shipped product.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card featured reveal" onclick="window.location='work/productf.html'">
+        <div>
+          <div class="work-tags">
+            <span class="tag highlight">AI · SaaS</span>
+            <span class="tag">Pre-MVP</span>
+            <span class="tag">Currently Building</span>
+          </div>
+          <h3>Product f()</h3>
+          <p>An AI-powered Product OS where every capability is an executable function. One OS. Every signal. Human judgment at every decision.</p>
+          <div class="work-outcome"><span class="dot"></span> Waitlist Open · productf.io</div>
+        </div>
+        <div class="work-visual">
+          <div class="work-visual-inner">
+            <div class="mini-block"><div class="mini-block-num text-gradient">68+</div><div class="mini-block-lbl">Tools Switched Daily</div></div>
+            <div class="mini-block"><div class="mini-block-num text-gradient">14</div><div class="mini-block-lbl">AI Functions Built</div></div>
+            <div class="mini-block"><div class="mini-block-num text-gradient">∞</div><div class="mini-block-lbl">Team Memory</div></div>
+            <div class="mini-block"><div class="mini-block-num text-gradient">HITL</div><div class="mini-block-lbl">by Design</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-1" onclick="window.location='work/prostudio.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">AI · SaaS</span><span class="tag">Film & Media</span><span class="tag">Live</span></div>
+        <h3>ProStudio.space</h3>
+        <p>AI-powered pre-production platform for the film and media industry. Built Scripts, Pre-visualisation, Talent Calls, and Cast & Crew profiles.</p>
+        <div class="work-outcome"><span class="dot"></span> Live product · Talent Calls launched</div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-2" onclick="window.location='work/reportinghub.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">Design Consulting</span><span class="tag">B2B SaaS</span><span class="tag">Calgary</span></div>
+        <h3>The Reporting Hub</h3>
+        <p>White-label Power BI embedded analytics. Design audit, UX overhaul, design system, and Bootstrap implementation for Microsoft-recommended SaaS.</p>
+        <div class="work-outcome"><span class="dot"></span> CEO endorsed · Design system shipped</div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-1" onclick="window.location='work/petfolk.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">HealthTech · AI</span><span class="tag">Pet Care</span></div>
+        <h3>Petfolk</h3>
+        <p>Pet web services and franchise management built on AI. Full dev, design, and deployment for pet care marketplaces across India.</p>
+        <div class="work-outcome"><span class="dot"></span> Live & scaling · AI-powered marketplace</div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-2" onclick="window.location='work/labh.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">FinTech</span><span class="tag">Web App</span><span class="tag">Design</span></div>
+        <h3>Labh</h3>
+        <p>Smarter investing with expert-designed investment baskets. Full product design philosophy and implementation for wealth management.</p>
+        <div class="work-outcome"><span class="dot"></span> Product design leadership · Live platform</div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-3" onclick="window.location='work/itihasa.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">Content</span><span class="tag">Web App</span><span class="tag">Dev & Design</span></div>
+        <h3>Itihasa Collective</h3>
+        <p>Enabling secure script sharing for writers. Full-stack dev and design for encrypted document management in creative workflows.</p>
+        <div class="work-outcome"><span class="dot"></span> Secure script platform · Writers focused</div>
+      </div>
+
+      <div class="work-card reveal" onclick="window.location='work/imux.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">FinTech · AI</span><span class="tag">NL-IDB</span><span class="tag">Seed</span></div>
+        <h3>Imux</h3>
+        <p>Natural language query platform for complex databases. Co-founded an NLI-DB SaaS product with fundraising and go-to-market strategy.</p>
+        <div class="work-outcome"><span class="dot"></span> Seed funding raised · AI accelerator</div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-1" onclick="window.location='work/station91.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">EdTech</span><span class="tag">Marketplace</span></div>
+        <h3>Station91</h3>
+        <p>Bite-sized learning app for startup founders. MVP built and iterated through user research to growth-ready v1.0.</p>
+        <div class="work-outcome"><span class="dot"></span> MVP → v1.0 shipped · User-driven</div>
+      </div>
+
+      <div class="work-card reveal reveal-delay-2" onclick="window.location='work/cabdost.html'" style="cursor:pointer;">
+        <div class="work-tags"><span class="tag highlight">FinTech</span><span class="tag">B2B</span><span class="tag">Compliance</span></div>
+        <h3>Cabdost</h3>
+        <p>Helping cab drivers file income tax returns. Product and design for tax compliance in the gig economy.</p>
+        <div class="work-outcome"><span class="dot"></span> Gig economy focused · Compliance built-in</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">How we work</div>
+      <h2 class="section-headline">Your first 90 days<br />with Coalition House.</h2>
+      <p class="section-sub">A structured engagement so you always know what's happening and what's next. No retainer ambiguity.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal" data-num="01">
+        <span class="process-weeks">Week 1–2</span>
+        <h3>Discover &amp; Audit</h3>
+        <ul class="process-list">
+          <li>Product audit &amp; gap analysis</li>
+          <li>Stakeholder interviews</li>
+          <li>Competitive landscape mapping</li>
+          <li>North star &amp; success metrics</li>
+        </ul>
+      </div>
+      <div class="process-step reveal reveal-delay-1" data-num="02">
+        <span class="process-weeks">Week 3–4</span>
+        <h3>Research &amp; Define</h3>
+        <ul class="process-list">
+          <li>User interviews (5–8 sessions)</li>
+          <li>Jobs-to-be-done synthesis</li>
+          <li>Personas &amp; user journeys</li>
+          <li>Prioritised problem statements</li>
+        </ul>
+      </div>
+      <div class="process-step reveal reveal-delay-2" data-num="03">
+        <span class="process-weeks">Week 5–8</span>
+        <h3>Design &amp; Prototype</h3>
+        <ul class="process-list">
+          <li>Wireframes &amp; IA</li>
+          <li>High-fidelity UI design</li>
+          <li>Interactive prototype</li>
+          <li>Design system foundations</li>
+        </ul>
+      </div>
+      <div class="process-step reveal reveal-delay-3" data-num="04">
+        <span class="process-weeks">Week 9–12</span>
+        <h3>Build &amp; Ship</h3>
+        <ul class="process-list">
+          <li>Dev handoff &amp; QA support</li>
+          <li>Iteration &amp; testing cycles</li>
+          <li>Analytics &amp; event tracking</li>
+          <li>Launch readiness review</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Why Coalition House</div>
+      <h2 class="section-headline">Before you post that<br />job description, read this.</h2>
+      <p class="section-sub">Most early-stage teams hire full-time before they've validated their product. There's a smarter sequence.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-col reveal" style="opacity:0.75;">
+        <div class="why-col-header">
+          <div class="why-icon no">✕</div>
+          <div class="why-col-title">Hiring a Senior PM or Designer First</div>
+        </div>
+        <div class="why-item"><span class="why-item-icon">💸</span><div class="why-item-text"><strong>$120K–$180K/year</strong> before you've validated a single core assumption</div></div>
+        <div class="why-item"><span class="why-item-icon">🗓️</span><div class="why-item-text"><strong>3–6 months recruiting</strong> before anything ships or gets tested</div></div>
+        <div class="why-item"><span class="why-item-icon">🧩</span><div class="why-item-text">One hire covers <strong>one discipline</strong> — you still lack strategy, research, or dev</div></div>
+        <div class="why-item"><span class="why-item-icon">📉</span><div class="why-item-text">Wrong hire at this stage = <strong>costly pivot</strong> or team misalignment</div></div>
+      </div>
+      <div class="why-col col-yes reveal reveal-delay-1">
+        <div class="why-col-header">
+          <div class="why-icon yes">✓</div>
+          <div class="why-col-title">Coalition House First</div>
+        </div>
+        <div class="why-item"><span class="why-item-icon">⚡</span><div class="why-item-text"><strong>Operational in week one</strong> — no onboarding lag, no probation periods</div></div>
+        <div class="why-item"><span class="why-item-icon">🎯</span><div class="why-item-text">Full-stack coverage: <strong>strategy + design + research + dev</strong> in one engagement</div></div>
+        <div class="why-item"><span class="why-item-icon">🏗️</span><div class="why-item-text">Ship a <strong>validated, designed, built product</strong> — then hire to scale what works</div></div>
+        <div class="why-item"><span class="why-item-icon">📋</span><div class="why-item-text">Leave with a <strong>design system, research library &amp; spec</strong> your first hire can own</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-section">
+  <div class="testimonial-inner">
+    <div class="quote-mark text-gradient reveal">"</div>
+    <p class="quote-text reveal reveal-delay-1">Kireeti is a great User Interface / User Experience Designer with a strong focus on Product Improvement. I would recommend him.</p>
+    <div class="quote-author reveal reveal-delay-2">
+      <div class="quote-avatar">BD</div>
+      <div class="quote-meta">
+        <div class="quote-name">Brian DeLuca</div>
+        <div class="quote-role">CEO &amp; Co-Founder, Reporting Hub · Calgary 🇨🇦</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="section-tag" style="justify-content:center;">Free 30-min Product Audit</div>
+      <h2>Ready to build something<br /><span class="text-gradient">worth shipping?</span></h2>
+      <p>No pitch. No sales deck. Just a focused product conversation — and an honest assessment of what your product needs right now.</p>
+      <a href="mailto:mail@coalition.house?subject=Product Audit Request" class="btn-primary" style="margin:0 auto;">
+        Email us to book a call
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <p class="cta-meta">Or write directly to <a href="mailto:mail@coalition.house">mail@coalition.house</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <img src="Coalition-House-Logo-2023.jpeg" alt="Coalition House" style="height:24px;width:auto;" />
+        </div>
+        <p>An agency for product strategy, research, design, and development — built for teams that move fast and ship with conviction.</p>
+        <a href="mailto:mail@coalition.house" class="footer-email">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="12" height="9" rx="1.5"/><path d="M1 3.5l6 4.5 6-4.5"/></svg>
+          mail@coalition.house
+        </a>
+      </div>
+      <div class="footer-link-group">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Product Strategy</a></li>
+          <li><a href="#services">User Research</a></li>
+          <li><a href="#services">Product Design</a></li>
+          <li><a href="#services">Development</a></li>
+          <li><a href="#services">Growth &amp; Analytics</a></li>
+        </ul>
+      </div>
+      <div class="footer-link-group">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://kireetivarma.me" target="_blank" rel="noopener">Team</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        © 2025 Coalition House Products Inc · Calgary, Alberta, Canada<br />
+        Coalition House Private Limited · Est. 2018 · India
+      </div>
+      <div class="built-by">Built by Coalition House <span class="text-gradient">✦</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('ch-theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+
+themeBtn.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('ch-theme', next);
+});
+
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+const toggle = document.getElementById('mobileToggle');
+const links = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), i * 110 + 80);
+  });
+});
+</script>
+
+</body>
+</html>
